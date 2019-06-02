@@ -11,7 +11,7 @@
     <h1>Spring Campus Demo TODO list</h1>
 </header>
 <ul th:each="task : ${taskList}">
-    <li><span th:text="${task}"></span></li>
+    <li><span th:text="${task.text}"></span></li>
 </ul>
 </body>
 </html>
