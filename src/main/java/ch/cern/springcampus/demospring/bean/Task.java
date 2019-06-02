@@ -1,22 +1,27 @@
 package ch.cern.springcampus.demospring.bean;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 public class Task implements Serializable {
 
     @Id
-    private Long id;
+    private String id;
     private String text;
+    @CreationTimestamp
+    private Timestamp createdOn;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(final Long id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -26,6 +31,14 @@ public class Task implements Serializable {
 
     public void setText(final String text) {
         this.text = text;
+    }
+
+    public Timestamp getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(final Timestamp createdOn) {
+        this.createdOn = createdOn;
     }
 
     @Override

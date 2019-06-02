@@ -1,10 +1,13 @@
 package ch.cern.springcampus.demospring.controller.task;
 
 import ch.cern.springcampus.demospring.bean.Task;
+import ch.cern.springcampus.demospring.dto.TaskForm;
 import ch.cern.springcampus.demospring.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,5 +31,11 @@ public class TaskController {
         List<Task> taskList = taskService.findAllTasks();
         modelAndView.addObject("taskList", taskList);
         return modelAndView;
+    }
+
+    @PostMapping("/addTask")
+    public String addTask(final @ModelAttribute TaskForm taskForm) {
+        taskService.addNewTask(taskForm.getText());
+        return "redirect:/task/list";
     }
 }
