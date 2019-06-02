@@ -5,6 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Task List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script th:src="@{/js/tasks.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <body>
 <h1>Add new task</h1>
@@ -26,9 +29,9 @@
                 <input type="text" name="id" th:value="${task.id}" hidden/>
                 <!--suppress HtmlFormInputWithoutLabel -->
                 <input type="checkbox" name="done" th:checked="${task.done}"/>
-                <span th:text="${task.text}"></span>
-                <button type="submit" formaction="/task/update">Save</button>
-                <button type="submit" formaction="/task/delete">Delete</button>
+                <span th:class="${task.done} ? checked : ''" th:text="${task.text}"></span>
+                <button class="save-task" type="submit" formaction="/task/update">Save</button>
+                <button class="delete-task" type="submit" formaction="/task/delete">Delete</button>
             </form>
         </div>
     </li>
