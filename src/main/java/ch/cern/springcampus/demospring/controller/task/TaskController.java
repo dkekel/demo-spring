@@ -5,10 +5,7 @@ import ch.cern.springcampus.demospring.dto.TaskForm;
 import ch.cern.springcampus.demospring.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -33,9 +30,24 @@ public class TaskController {
         return modelAndView;
     }
 
-    @PostMapping("/addTask")
+    @PostMapping("/add")
     public String addTask(final @ModelAttribute TaskForm taskForm) {
         taskService.addNewTask(taskForm.getText());
+        return "redirect:/task/list";
+    }
+
+    @PostMapping("/update")
+    public String updateTask(final @ModelAttribute TaskForm taskForm) {
+        String taskId = taskForm.getId();
+        boolean taskDone = taskForm.isDone();
+        taskService.updateTask(taskId, taskDone);
+        return "redirect:/task/list";
+    }
+
+    @PostMapping("/delete")
+    public String deleteTask(final @ModelAttribute TaskForm taskForm) {
+        String taskId = taskForm.getId();
+        taskService.deleteTask(taskId);
         return "redirect:/task/list";
     }
 }

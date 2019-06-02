@@ -1,6 +1,7 @@
 package ch.cern.springcampus.demospring.service;
 
 import ch.cern.springcampus.demospring.bean.Task;
+import ch.cern.springcampus.demospring.exception.TaskNotFoundException;
 import ch.cern.springcampus.demospring.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -29,5 +30,18 @@ public class TaskService {
         newTask.setId(UUID.randomUUID().toString());
         newTask.setText(text);
         taskRepository.save(newTask);
+    }
+
+    public void updateTask(final String id, final boolean done) {
+        Task task = taskRepository.findById(id).orElse(null);
+        if (task == null) {
+            throw new TaskNotFoundException();
+        }
+        task.setDone(done);
+        taskRepository.save(task);
+    }
+
+    public void deleteTask(final String id) {
+        taskRepository.deleteById(id);
     }
 }

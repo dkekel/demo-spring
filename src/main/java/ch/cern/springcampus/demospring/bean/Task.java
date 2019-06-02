@@ -14,6 +14,7 @@ public class Task implements Serializable {
     @Id
     private String id;
     private String text;
+    private boolean done;
     @CreationTimestamp
     private Timestamp createdOn;
 
@@ -31,6 +32,14 @@ public class Task implements Serializable {
 
     public void setText(final String text) {
         this.text = text;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(final boolean done) {
+        this.done = done;
     }
 
     public Timestamp getCreatedOn() {
