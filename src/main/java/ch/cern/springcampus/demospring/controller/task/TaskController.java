@@ -30,6 +30,15 @@ public class TaskController {
         return modelAndView;
     }
 
+    @PostMapping("/list")
+    public ModelAndView filteredList(final @RequestParam(defaultValue = "false") boolean hideCompleted) {
+        ModelAndView modelAndView = new ModelAndView("tasks/list");
+        List<Task> taskList = hideCompleted ? taskService.findAllTasksNotCompleted() : taskService.findAllTasks();
+        modelAndView.addObject("taskList", taskList);
+        modelAndView.addObject("hideCompleted", hideCompleted);
+        return modelAndView;
+    }
+
     @PostMapping("/add")
     public String addTask(final @ModelAttribute TaskForm taskForm) {
         taskService.addNewTask(taskForm.getText());

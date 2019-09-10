@@ -25,6 +25,10 @@ public class TaskService {
         return taskRepository.findAll(Sort.by(Sort.Direction.ASC, "createdOn"));
     }
 
+    public List<Task> findAllTasksNotCompleted() {
+        return taskRepository.findAllByDoneEquals(false);
+    }
+
     public void addNewTask(final String text) {
         Task newTask = new Task();
         newTask.setId(UUID.randomUUID().toString());
