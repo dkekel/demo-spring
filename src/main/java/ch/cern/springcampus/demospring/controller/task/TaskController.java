@@ -27,6 +27,7 @@ public class TaskController {
         ModelAndView modelAndView = new ModelAndView("tasks/list");
         List<Task> taskList = taskService.findAllTasks();
         modelAndView.addObject("taskList", taskList);
+        modelAndView.addObject("hideCompleted", false);
         return modelAndView;
     }
 

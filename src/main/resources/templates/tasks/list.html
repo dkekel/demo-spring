@@ -5,7 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Task List</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script th:src="@{/js/tasks.js}"></script>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
@@ -23,15 +22,15 @@
 <form action="/task/list" method="post">
     <label>
         Hide Completed Tasks
-        <input type="checkbox" name="hideCompleted" th:checked="${hideCompleted}">
+        <input id="hideCompleted" type="checkbox" name="hideCompleted" th:checked="${hideCompleted}">
     </label>
-    <button type="submit">Filter</button>
+    <button id="filterTasks" type="submit">Filter</button>
 </form>
 <header>
     <h1>Spring Campus Demo TODO list</h1>
 </header>
-<ul th:each="task : ${taskList}">
-    <li>
+<ul id="taskList">
+    <li th:each="task : ${taskList}">
         <div>
             <form method="post">
                 <!--suppress HtmlFormInputWithoutLabel -->
