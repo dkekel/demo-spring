@@ -27,7 +27,7 @@
     <button id="filterTasks" type="submit">Filter</button>
 </form>
 <header>
-    <h1>Spring Campus Demo TODO list</h1>
+    <h1>Spring Campus Demo TODO list (incomplete: <span id="taskCount" th:text="${incompleteCount}"></span>)</h1>
 </header>
 <ul id="taskList">
     <li th:each="task : ${taskList}">

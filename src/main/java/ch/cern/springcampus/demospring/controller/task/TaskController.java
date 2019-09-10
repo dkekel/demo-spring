@@ -26,8 +26,10 @@ public class TaskController {
     public ModelAndView list() {
         ModelAndView modelAndView = new ModelAndView("tasks/list");
         List<Task> taskList = taskService.findAllTasks();
+        long incompleteCount = taskService.countIncompleteTasks(taskList);
         modelAndView.addObject("taskList", taskList);
         modelAndView.addObject("hideCompleted", false);
+        modelAndView.addObject("incompleteCount", incompleteCount);
         return modelAndView;
     }
 
@@ -35,8 +37,10 @@ public class TaskController {
     public ModelAndView filteredList(final @RequestParam(defaultValue = "false") boolean hideCompleted) {
         ModelAndView modelAndView = new ModelAndView("tasks/list");
         List<Task> taskList = hideCompleted ? taskService.findAllTasksNotCompleted() : taskService.findAllTasks();
+        long incompleteCount = taskService.countIncompleteTasks(taskList);
         modelAndView.addObject("taskList", taskList);
         modelAndView.addObject("hideCompleted", hideCompleted);
+        modelAndView.addObject("incompleteCount", incompleteCount);
         return modelAndView;
     }
 

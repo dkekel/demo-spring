@@ -11,6 +11,7 @@ const addSaveTaskHandler = () => {
                 request.open(formMethod, formAction, true);
                 request.send(formData);
                 updateTaskList();
+                updateIncompleteCount();
             };
         });
     });
@@ -28,19 +29,40 @@ const addFilterTasksHandler = () => {
 const updateTaskList = () => {
     const completedFilter = getCompletedFilter();
     const hideCompleted = completedFilter.checked;
-    const taskList = document.getElementById('taskList');
-    const tasks = taskList.getElementsByTagName("li");
+    const tasks = getTasksList();
     for (let i = 0; i < tasks.length; ++i) {
-        const taskFields = tasks[i].getElementsByTagName('input');
-        const checkbox = Array.from(taskFields).filter(input => input.name === 'done')[0];
+        const checkbox = getTaskCheckBox(tasks[i]);
         if (checkbox !== undefined && checkbox.checked === true) {
             tasks[i].hidden = hideCompleted;
         }
     }
 };
 
+const updateIncompleteCount = () => {
+    let count = 0;
+    const tasks = getTasksList();
+    for (let i = 0; i < tasks.length; ++i) {
+        const checkbox = getTaskCheckBox(tasks[i]);
+        if (checkbox !== undefined && checkbox.checked === false) {
+            count++;
+        }
+    }
+    const incompleteCount = document.getElementById('taskCount');
+    incompleteCount.textContent = `${count}`;
+};
+
 const getCompletedFilter = () => {
     return  document.getElementById('hideCompleted');
+};
+
+const getTasksList = () => {
+    const taskList = document.getElementById('taskList');
+    return taskList.getElementsByTagName("li");
+};
+
+const getTaskCheckBox = (task) => {
+    const taskFields = task.getElementsByTagName('input');
+    return Array.from(taskFields).filter(input => input.name === 'done')[0];
 };
 
 const hideActionButton = (element) => {

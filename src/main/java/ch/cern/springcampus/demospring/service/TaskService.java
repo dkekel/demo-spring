@@ -48,4 +48,8 @@ public class TaskService {
     public void deleteTask(final String id) {
         taskRepository.deleteById(id);
     }
+
+    public long countIncompleteTasks(final List<Task> tasks) {
+        return tasks.size() - tasks.stream().filter(Task::isDone).count();
+    }
 }
