@@ -7,46 +7,93 @@
     <title>Task List</title>
     <script th:src="@{/js/tasks.js}"></script>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/bulma/0.7.5/css/bulma.min.css}">
 </head>
 <body>
-<h1>Add new task</h1>
-<form action="/task/add" method="post">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-    <label>
-        Task description
-        <input type="text" name="text" size="50" placeholder="Type new task description">
-    </label>
-    <button type="submit">Add task</button>
-    <button type="reset">Clear</button>
-</form>
-<h1>Filters</h1>
-<form action="/task/list" method="post">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-    <label>
-        Hide Completed Tasks
-        <input id="hideCompleted" type="checkbox" name="hideCompleted" th:checked="${hideCompleted}">
-    </label>
-    <button id="filterTasks" type="submit">Filter</button>
-</form>
-<header>
-    <h1>Spring Campus Demo TODO list (incomplete: <span id="taskCount" th:text="${incompleteCount}"></span>)</h1>
-</header>
-<ul id="taskList">
-    <li th:each="task : ${taskList}">
-        <div>
-            <form method="post">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                <!--suppress HtmlFormInputWithoutLabel -->
-                <input type="text" name="id" th:value="${task.id}" hidden/>
-                <!--suppress HtmlFormInputWithoutLabel -->
-                <input type="checkbox" name="done" th:checked="${task.done}"/>
-                <span th:class="${task.done} ? checked : ''" th:text="${task.text}"></span>
-                <span th:text="'Created By: ' + ${task.createdBy.username}"></span>
-                <button class="save-task" type="submit" formaction="/task/update">Save</button>
-                <button class="delete-task" type="submit" formaction="/task/delete">Delete</button>
-            </form>
+<div class="hero">
+    <div class="hero-body">
+        <div class="columns">
+            <div class="column">
+                <div class="container">
+                    <h1 class="title">Add new task</h1>
+                    <form action="/task/add" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <div class="field">
+                            <label class="label">Task description</label>
+                            <div class="control">
+                                <!--suppress HtmlFormInputWithoutLabel -->
+                                <input class="input is-rounded" type="text" name="text" size="50"
+                                       placeholder="Type new task description">
+                            </div>
+                        </div>
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-success is-rounded" type="submit">Add task</button>
+                            </div>
+                            <div class="control">
+                                <button class="button is-text is-rounded" type="reset">Clear</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="column">
+                <div class="container">
+                    <h1>Filters</h1>
+                    <form action="/task/list" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <div class="field">
+                            <label class="checkbox">
+                                <input id="hideCompleted" type="checkbox" name="hideCompleted"
+                                       th:checked="${hideCompleted}">
+                                Hide Completed Tasks
+                            </label>
+                        </div>
+                        <div class="control">
+                            <button class="button is-link is-rounded" id="filterTasks" type="submit">Filter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </li>
-</ul>
+    </div>
+</div>
+
+<div class="hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">Spring Campus Demo TODO list (incomplete: <span id="taskCount"
+                                                                              th:text="${incompleteCount}"></span>)</h1>
+            <div class="content is-medium">
+                <ul id="taskList">
+                    <li th:each="task : ${taskList}">
+                        <form class="task-form" method="post">
+                            <div class="columns">
+                                <div class="column">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                    <!--suppress HtmlFormInputWithoutLabel -->
+                                    <input type="text" name="id" th:value="${task.id}" hidden/>
+                                    <!--suppress HtmlFormInputWithoutLabel -->
+                                    <input type="checkbox" name="done" th:checked="${task.done}"/>
+                                    <span th:class="${task.done} ? checked : ''" th:text="${task.text}"></span>
+                                    <span class="tag is-info is-rounded"
+                                          th:text="'Created By: ' + ${task.createdBy.username}"></span>
+                                </div>
+                                <div class="column">
+                                    <button class="save-task button is-success is-small is-rounded" type="submit"
+                                            formaction="/task/update">Save
+                                    </button>
+                                    <button class="delete-task button is-danger is-small is-rounded" type="submit"
+                                            formaction="/task/delete">Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

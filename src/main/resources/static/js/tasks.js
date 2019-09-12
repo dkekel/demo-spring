@@ -1,19 +1,21 @@
 const addSaveTaskHandler = () => {
-    Array.from(document.getElementsByClassName('save-task')).forEach(function (saveButton) {
-        hideActionButton(saveButton);
-        Array.from(saveButton.parentElement.getElementsByTagName('input')).forEach(function (checkbox) {
-            checkbox.onclick = function (event) {
-                const formAction = saveButton.formAction;
-                const formMethod = saveButton.parentElement.method;
-                const formData = new FormData(saveButton.parentElement);
-                checkbox.nextElementSibling.className = event.target.checked ? 'checked' : '';
-                const request = new XMLHttpRequest();
-                request.open(formMethod, formAction, true);
-                request.send(formData);
-                updateTaskList();
-                updateIncompleteCount();
-            };
-        });
+    Array.from(document.getElementById('taskList').getElementsByTagName('form'))
+        .forEach(function (taskForm) {
+            const saveButton = taskForm.getElementsByClassName('save-task')[0];
+            hideActionButton(saveButton);
+            Array.from(taskForm.getElementsByTagName('input')).forEach(function (checkbox) {
+                checkbox.onclick = function (event) {
+                    const formAction = saveButton.formAction;
+                    const formMethod = taskForm.method;
+                    const formData = new FormData(taskForm);
+                    checkbox.nextElementSibling.className = event.target.checked ? 'checked' : '';
+                    const request = new XMLHttpRequest();
+                    request.open(formMethod, formAction, true);
+                    request.send(formData);
+                    updateTaskList();
+                    updateIncompleteCount();
+                };
+            });
     });
 };
 
@@ -52,7 +54,7 @@ const updateIncompleteCount = () => {
 };
 
 const getCompletedFilter = () => {
-    return  document.getElementById('hideCompleted');
+    return document.getElementById('hideCompleted');
 };
 
 const getTasksList = () => {
@@ -72,5 +74,5 @@ const hideActionButton = (element) => {
     };
 };
 
-window.addEventListener('load', addSaveTaskHandler, false );
-window.addEventListener('load', addFilterTasksHandler, false );
+window.addEventListener('load', addSaveTaskHandler, false);
+window.addEventListener('load', addFilterTasksHandler, false);

@@ -1,3 +1,7 @@
 .checked {
     color: forestgreen;
 }
+
+.delete-task {
+    vertical-align: middle;
+}

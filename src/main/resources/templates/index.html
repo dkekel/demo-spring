@@ -1,12 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>CERN Spring Campus TODO list</title>
+    <link rel="stylesheet" th:href="@{/webjars/bulma/0.7.5/css/bulma.min.css}">
 </head>
 <body>
-<h1>Welcome to CERN Spring Campus Hamburg!</h1>
-<a href="/task/list">Go to the list of steps for demo</a>
-<a href="/register">Register</a>
+<nav class="level">
+    <div class="level-item has-text-centered">
+        <div>
+            <a class="level-item" href="/register"><strong>Register</strong></a>
+        </div>
+    </div>
+</nav>
+<section class="hero is-dark has-text-centered">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Welcome to CERN Spring Campus Hamburg!
+            </h1>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container has-text-centered">
+        <h2 class="subtitle">
+            <a href="/task/list">Go to the list of steps for demo</a>
+        </h2>
+    </div>
+</section>
 </body>
 </html>
