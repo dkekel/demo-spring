@@ -1,9 +1,11 @@
 package ch.cern.springcampus.demospring.controller.task;
 
 import ch.cern.springcampus.demospring.bean.Task;
+import ch.cern.springcampus.demospring.bean.User;
 import ch.cern.springcampus.demospring.dto.TaskForm;
 import ch.cern.springcampus.demospring.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,8 +47,8 @@ public class TaskController {
     }
 
     @PostMapping("/add")
-    public String addTask(final @ModelAttribute TaskForm taskForm) {
-        taskService.addNewTask(taskForm.getText());
+    public String addTask(final @ModelAttribute TaskForm taskForm, final @AuthenticationPrincipal User currentUser) {
+        taskService.addNewTask(taskForm.getText(), currentUser);
         return "redirect:/task/list";
     }
 

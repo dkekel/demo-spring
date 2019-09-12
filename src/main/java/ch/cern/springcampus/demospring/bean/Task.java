@@ -17,6 +17,7 @@ public class Task implements Serializable {
     private boolean done;
     @CreationTimestamp
     private Timestamp createdOn;
+    private User createdBy;
 
     public String getId() {
         return id;
@@ -48,6 +49,14 @@ public class Task implements Serializable {
 
     public void setCreatedOn(final Timestamp createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(final User createdBy) {
+        this.createdBy = createdBy;
     }
 
     @Override

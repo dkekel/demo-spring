@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Campus Registration</title>
+</head>
+<body>
+<form method="post" action="/register" th:object="${registrationForm}">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <div>
+        <label>
+            Username
+            <input type="text" th:field="*{username}"/>
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect username</span>
+        </label>
+    </div>
+    <div>
+        <label>
+            Password:
+            <input type="password" th:field="*{password}"/>
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect password</span>
+        </label>
+    </div>
+    <div>
+        <label>
+            Repeat password:
+            <input type="password" th:field="*{repeatPassword}">
+            <span th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}">Incorrect repeat password</span>
+        </label>
+    </div>
+    <div>
+        <button type="submit">Register</button>
+        <button type="reset">Clear</button>
+    </div>
+</form>
+</body>
+</html>

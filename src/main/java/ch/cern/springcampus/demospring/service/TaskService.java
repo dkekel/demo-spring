@@ -1,6 +1,7 @@
 package ch.cern.springcampus.demospring.service;
 
 import ch.cern.springcampus.demospring.bean.Task;
+import ch.cern.springcampus.demospring.bean.User;
 import ch.cern.springcampus.demospring.exception.TaskNotFoundException;
 import ch.cern.springcampus.demospring.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,11 @@ public class TaskService {
         return taskRepository.findAllByDoneEquals(false);
     }
 
-    public void addNewTask(final String text) {
+    public void addNewTask(final String text, final User createdBy) {
         Task newTask = new Task();
         newTask.setId(UUID.randomUUID().toString());
         newTask.setText(text);
+        newTask.setCreatedBy(createdBy);
         taskRepository.save(newTask);
     }
 
